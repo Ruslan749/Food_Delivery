@@ -20,4 +20,6 @@ public class Categories {
     @JsonIgnore
     @OneToMany(mappedBy = "categories",cascade = CascadeType.ALL)
     private List<Menu> menuList;
+
+
 }

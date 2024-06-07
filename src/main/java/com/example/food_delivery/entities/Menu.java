@@ -1,5 +1,6 @@
 package com.example.food_delivery.entities;
 
+
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import javax.validation.constraints.Size;
 @Table(name = "menu")
 @Data
 public class Menu {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +36,6 @@ public class Menu {
     @ManyToOne
     @JoinColumn(name = "categories",referencedColumnName = "id")
     private Categories categories;
+
 
 }

@@ -8,18 +8,21 @@ jwt:
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:D:/Food_Delivery/DataBase/users
+    url: jdbc:h2:/Users/victorcerkasov/Documents/Food_Delivery-master/D:/Food_Delivery/DataBase/users
     username: sa
     password:
   jpa:
-    show-sql: true
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: false
+    h2:
+      console:
+        enabled: true
+        settings:
+          web-allow-others: false
   main:
     allow-circular-references: true

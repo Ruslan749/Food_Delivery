@@ -17,6 +17,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * Сервис для аунтентификации и выдачи токена
@@ -28,24 +30,16 @@ public class AuthService {
     private final JwtTokenUtils jwtTokenUtils;
     private final AuthenticationManager authenticationManager; // менеджер, который проверят аутентификацию пользователя в сети
 
-    public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) { // приходят на вход данные (запрос на аутентификацию)
+    public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest, HttpServletResponse response) {
         try {
-
-            // проверка на существование такого пользователя в БД
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-
         } catch (BadCredentialsException e) {
-            // выкидываем созданную нами ошибку в AppError
             return new ResponseEntity<>(new AppError(HttpStatus.UNAUTHORIZED.value(), "Неправильный логин или пароль"), HttpStatus.UNAUTHORIZED);
-
         }
-
-        // загружаем пользователя по его имени
         UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
-        // генерируем токен по данным пользователя userDetails
         String token = jwtTokenUtils.generateToken(userDetails);
-        // возвращаем сгенерированный токен со статусом OK
-        return ResponseEntity.ok(new JwtResponse(token));
+        response.setHeader("x-csrf-token", token);
+        return ResponseEntity.ok(userService.findByUsername(authRequest.getUsername()));
     }
 
     public ResponseEntity<?> createNewUser(@RequestBody RegistrationUserDto registrationUserDto) { // приходят данные для регистрации

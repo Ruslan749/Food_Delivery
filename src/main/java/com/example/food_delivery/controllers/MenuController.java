@@ -29,8 +29,8 @@ public class MenuController {
     }
 
     @GetMapping()
-    public List<CatalogMenuDTO> getMenu() {
-        return Collections.singletonList(menuService.findAll());
+    public CatalogMenuDTO getMenu() {
+        return menuService.findAll();
     }
 
 

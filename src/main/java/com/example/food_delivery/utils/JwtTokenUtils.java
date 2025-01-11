@@ -9,10 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 /**
     Настройка JWT токена
@@ -56,6 +53,8 @@ public class JwtTokenUtils {
     public String getUsername(String token) {
         return getAllClaimsFromToken(token).getSubject();
     }
+
+    public Long getUserId(String token) { return getAllClaimsFromToken(token).get("userId", Long.class); }
     // получаем роли из токена
     public List<String> getRoles(String token) {
         return getAllClaimsFromToken(token).get("roles", List.class);

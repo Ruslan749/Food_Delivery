@@ -1653,7 +1653,7 @@ Column "KEY_SEQ" not found [42122-210]
 2024-06-04 11:19:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Индекс "PRIMARY_KEY_" не найден
 Index "PRIMARY_KEY_" not found; SQL statement:
-alter table menu add constraint FK78akjw7wa6wx6s0k80w5t8w26 foreign key (categories) references categories [42112-214]
+alter table foodItem add constraint FK78akjw7wa6wx6s0k80w5t8w26 foreign key (categories) references categories [42112-214]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
 	at org.h2.message.DbException.get(DbException.java:223)
@@ -1705,7 +1705,7 @@ alter table menu add constraint FK78akjw7wa6wx6s0k80w5t8w26 foreign key (categor
 2024-06-04 11:45:06 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Индекс "PRIMARY_KEY_" не найден
 Index "PRIMARY_KEY_" not found; SQL statement:
-alter table menu add constraint FK78akjw7wa6wx6s0k80w5t8w26 foreign key (categories) references categories [42112-214]
+alter table foodItem add constraint FK78akjw7wa6wx6s0k80w5t8w26 foreign key (categories) references categories [42112-214]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
 	at org.h2.message.DbException.get(DbException.java:223)

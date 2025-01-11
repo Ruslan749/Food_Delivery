@@ -44,6 +44,8 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
+    public Optional<User> findById(Long id) { return userRepository.findById(id); }
+
     // загрузка user по его имени
     @Override
     @Transactional

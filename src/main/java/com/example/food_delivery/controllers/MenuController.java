@@ -35,7 +35,7 @@ public class MenuController {
 
 
     @GetMapping("/{id}")
-    public Menu getProductMenuById(@PathVariable("id") int id) {
+    public Menu getProductMenuById(@PathVariable("id") Long id) {
         return menuService.findOne(id); // Jackson конвертирует в JSON
     }
 
@@ -46,12 +46,12 @@ public class MenuController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     @DeleteMapping("deleteProduct/{id}")
-    public void deleteProduct(@PathVariable ("id") int id){
+    public void deleteProduct(@PathVariable ("id") Long id){
         menuService.delete(id);
     }
 
     @PatchMapping("updateProduct/{id}")
-    public void updateProductMenu(@RequestBody @Valid MenuDTO menuDTO, @PathVariable("id") int id){
+    public void updateProductMenu(@RequestBody @Valid MenuDTO menuDTO, @PathVariable("id") Long id){
         menuService.updateProduct(menuDTO,id);
     }
     @ExceptionHandler

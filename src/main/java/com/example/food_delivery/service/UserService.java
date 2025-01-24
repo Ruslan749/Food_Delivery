@@ -60,6 +60,19 @@ public class UserService implements UserDetailsService {
                 user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList())
         );
     }
+
+    public Long getUserId(String username) throws UsernameNotFoundException {
+        User user = findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(
+                String.format("Пользователь '%s' не найден", username)
+        ));
+        // создаем user  которого понимает spring
+        return user.getId();
+    }
+
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
     // сохраняем и создаем нового пользователя
     public User createNewUser(RegistrationUserDto registrationUserDto) {
         User user = new User();

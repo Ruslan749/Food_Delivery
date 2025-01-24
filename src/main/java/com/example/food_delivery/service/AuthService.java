@@ -37,8 +37,8 @@ public class AuthService {
             return new ResponseEntity<>(new AppError(HttpStatus.UNAUTHORIZED.value(), "Неправильный логин или пароль"), HttpStatus.UNAUTHORIZED);
         }
         UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
-        String token = jwtTokenUtils.generateToken(userDetails);
-        response.setHeader("x-csrf-token", token);
+        String token = jwtTokenUtils.generateToken(userDetails, userService.getUserId(userDetails.getUsername()));
+        response.setHeader("Authorization", token);
         return ResponseEntity.ok(userService.findByUsername(authRequest.getUsername()));
     }
 
@@ -56,5 +56,15 @@ public class AuthService {
         User user = userService.createNewUser(registrationUserDto);
         // возвращаем данные зарегистрированного пользователя
         return ResponseEntity.ok(new UserDto(user.getId(), user.getUsername(), user.getEmail()));
+    }
+
+    public ResponseEntity<User> updateUser(@RequestBody UserDto userDto) {
+        if (userService.findById(userDto.getId()).isPresent()) {
+            var user = userService.findById(userDto.getId()).get();
+            user.setEmail(userDto.getEmail());
+            user.setUsername(userDto.getUsername());
+            return ResponseEntity.ok(userService.saveUser(user));
+        }
+        return ResponseEntity.badRequest().build();
     }
 }

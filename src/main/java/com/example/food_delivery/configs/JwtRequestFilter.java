@@ -37,8 +37,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization"); // достаем значение из HEAD с полем Authorization
         String username = null;
         String jwt = null;
-        if (authHeader != null && authHeader.startsWith("Bearer ")) { // проверяем есть ли такой заголовок или нет
-            jwt = authHeader.substring(7); // достаем токен
+        if (authHeader != null) { // проверяем есть ли такой заголовок или нет // && authHeader.startsWith("Bearer ")
+            jwt = authHeader; // достаем токен
             try {
                 username = jwtTokenUtils.getUsername(jwt); // достаем имя пользователя из токена
             } catch (ExpiredJwtException e) {

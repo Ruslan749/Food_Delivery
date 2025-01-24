@@ -1,36 +1,77 @@
 package com.example.food_delivery.service
 
-import com.example.food_delivery.entities.Cart
-import com.example.food_delivery.exceptions.AppError
-import com.example.food_delivery.repositories.CartRepository
-import com.example.food_delivery.utils.JwtTokenUtils
+//import com.example.food_delivery.entities.Cart
+import com.example.food_delivery.entities.CartProduct
+//import com.example.food_delivery.repositories.CartRepository
+import com.example.food_delivery.repositories.MenuRepository
 import lombok.RequiredArgsConstructor
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.stereotype.Service
-import org.springframework.web.bind.annotation.RequestHeader
-import kotlin.jvm.Throws
 
 @Service
 @RequiredArgsConstructor
 class CartService {
+    @Autowired
+    private lateinit var requestInterceptService: RequestInterceptService
 
-    private val userService: UserService? = null
+//    @Autowired
+//    private lateinit var cartRepository: CartRepository
 
     @Autowired
-    private lateinit var jwtTokenUtils: JwtTokenUtils
+    private lateinit var menuRepository: MenuRepository
 
-    @Autowired
-    private lateinit var cartRepository: CartRepository
-
-    fun getCart(token: String): Cart {
-        val userId = jwtTokenUtils.getUserId(token)
-        val cart = cartRepository.getCartById(userId)
-
-        return if (cart.firstOrNull() != null) {
-            cart.first()
-        } else {
-            Cart()
-        }
-    }
+//    fun getCart(token: String): Cart {
+//        val userId = requestInterceptService.getUserId(token)
+//        val cart = cartRepository.getCartByUserId(userId)
+//
+//        return if (cart.firstOrNull() != null) {
+//            cart.first()
+//        } else {
+//            cartRepository.save(Cart(userId = userId))
+//        }
+//    }
+//
+//    fun addProduct(productId: Long, token: String): Cart {
+//        val cart = cartRepository.getCartByUserId(requestInterceptService.getUserId(token))
+//        val product = menuRepository.findById(productId)
+//
+//        CartProduct()
+//
+//        return if (cart.firstOrNull() != null) {
+//            cart.first()
+//        } else {
+//            Cart()
+//        }
+//    }
+//
+//    fun changeQuantity(productId: Long, quantity: Long, token: String): Cart {
+//        val cart = cartRepository.getCartByUserId(requestInterceptService.getUserId(token))
+//        val productId = menuRepository.findById(productId)
+//
+//        return if (cart.firstOrNull() != null) {
+//            cart.first()
+//        } else {
+//            Cart()
+//        }
+//    }
+//
+//    fun clearCart(token: String): Cart {
+//        val cart = cartRepository.getCartByUserId(requestInterceptService.getUserId(token))
+//
+//        return if (cart.firstOrNull() != null) {
+//            cart.first()
+//        } else {
+//            Cart()
+//        }
+//    }
+//
+//    fun removeProduct(productId: Long, token: String): Cart {
+//        val cart = cartRepository.getCartByUserId(requestInterceptService.getUserId(token))
+//
+//        return if (cart.firstOrNull() != null) {
+//            cart.first()
+//        } else {
+//            Cart()
+//        }
+//    }
 }

@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 public class MenuDTO {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
 
     @NotEmpty(message = "имя не должно быть пустым")

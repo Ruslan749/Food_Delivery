@@ -17,7 +17,7 @@ public class Menu {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "name_food")
     @NotEmpty(message = "имя не должно быть пустым")

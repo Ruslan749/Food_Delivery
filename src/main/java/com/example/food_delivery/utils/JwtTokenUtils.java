@@ -16,6 +16,9 @@ import java.util.stream.Collectors;
  */
 @Component
 public class JwtTokenUtils {
+
+    private String userId = "jti";
+
     @Value("${jwt.secret}")
     private String secret;
 
@@ -23,7 +26,7 @@ public class JwtTokenUtils {
     private Duration jwtLifetime;
 
     // метод, который позволяет из пользователя создать токен
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetails userDetails, Long userId) {
         Map<String, Object> claims = new HashMap<>();
         List<String> rolesList = userDetails.getAuthorities().stream() // получаем список прав доступа
                 .map(GrantedAuthority::getAuthority) // преобразовываем их к строке
@@ -38,6 +41,7 @@ public class JwtTokenUtils {
         return Jwts.builder()
                 .setClaims(claims) // полезная нагрузка
                 .setSubject(userDetails.getUsername())
+                .setId(userId.toString())
                 .setIssuedAt(issuedDate) // время выпуска
                 .setExpiration(expiredDate) // на сколько выдан токен
                 .signWith(SignatureAlgorithm.HS256, secret) // чем подписать
@@ -54,7 +58,7 @@ public class JwtTokenUtils {
         return getAllClaimsFromToken(token).getSubject();
     }
 
-    public Long getUserId(String token) { return getAllClaimsFromToken(token).get("userId", Long.class); }
+    public Long getUserId(String token) { return Long.parseLong(getAllClaimsFromToken(token).get(userId, String.class)); }
     // получаем роли из токена
     public List<String> getRoles(String token) {
         return getAllClaimsFromToken(token).get("roles", List.class);

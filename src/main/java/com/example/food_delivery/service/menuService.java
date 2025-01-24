@@ -60,7 +60,7 @@ public class menuService {
         return menu;
     }
 
-    public Menu findOne(int id) {
+    public Menu findOne(Long id) {
         Optional<Menu> foundMenu = menuRepository.findById(id);
         return foundMenu.orElseThrow(MenuNotFoundException::new);
     }
@@ -70,12 +70,12 @@ public class menuService {
         return menuRepository.save(convertToMenu(menuDTO));
     }
     @Transactional
-    public void delete(int id){
+    public void delete(Long id){
         menuRepository.deleteById(id);
     }
 
     @Transactional
-    public void updateProduct(MenuDTO menuDTO, int id) {
+    public void updateProduct(MenuDTO menuDTO, Long id) {
         Menu menu = convertToMenu(menuDTO);
         menu.setId(id);
         menuRepository.save(menu);

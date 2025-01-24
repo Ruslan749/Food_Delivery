@@ -2,6 +2,7 @@ package com.example.food_delivery.controllers;
 
 import com.example.food_delivery.dtos.JwtRequest;
 import com.example.food_delivery.dtos.RegistrationUserDto;
+import com.example.food_delivery.dtos.UserDto;
 import com.example.food_delivery.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +29,10 @@ public class AuthController {
     @PostMapping("/registration")
     public ResponseEntity<?> createNewUser(@RequestBody RegistrationUserDto registrationUserDto) {
         return authService.createNewUser(registrationUserDto);
+    }
+
+    @PostMapping("/postUser")
+    public ResponseEntity<?> updateUser(@RequestBody UserDto userDto) {
+        return  authService.updateUser(userDto);
     }
 }
